@@ -1,19 +1,52 @@
+const gridContainer = document.querySelector("div#grid-container");
+const gridBtn = document.querySelector("#grid-btn");
+const resetBtn = document.querySelector("#reset-btn");
+
 function createGrid (gridSize) {
     //Loop to create grid based on the input
     for (let i = 1; i <= gridSize * gridSize; i++) {
-        const gridContainer = document.querySelector("div#grid-container");
         const gridCell = document.createElement("div");
         gridContainer.appendChild(gridCell);
 
         //The square will always be 600x600
         //If there are fewer squares, they will be bigger.
         //More squares, they will be smaller.
-        const cellSize = 600 / gridSize;
+        const cellSize = 700 / gridSize;
         gridCell.setAttribute(`style`, `height: ${cellSize}px; width: ${cellSize}px; border: 0.2px solid black`);
         gridCell.addEventListener("mouseenter", () => {
             gridCell.style.backgroundColor = "black";
         });
+
+        resetBtn.addEventListener("click", () => {
+            gridCell.style.backgroundColor = "white";
+        });
     }
 }
+
+function removeGrid () {
+    gridContainer.textContent = "";
+}
+
+function changeGridSize () {
+    removeGrid();
+    
+    let newSize;
+
+    do {
+        newSize = prompt("Select the size of your grid. It must a number between 4 and 100.", "");
+
+        if (newSize === null) {
+            createGrid(16);
+            break;
+        } else if (isNaN(newSize) || newSize < 4 || newSize > 100) {
+            alert("Input invalid. Make sure you are selecting a number between 4 and 100.")
+        }
+
+    } while (isNaN(newSize) || newSize < 4 || newSize > 100);
+
+    createGrid(newSize);
+}
+
+gridBtn.addEventListener("click", changeGridSize);
 
 createGrid (16);

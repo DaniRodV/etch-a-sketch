@@ -2,14 +2,23 @@
     box-sizing: border-box;
 }
 
+div#body-container {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
 div#grid-container {
     display: flex;
     flex-wrap: wrap;
-    width: 600px;
-    height: 600px;
+    width: 700px;
+    height: 700px;
     outline: 1px solid black;
+    margin: auto auto 32px auto;
 }
 
-.grid-cell {
-
+#grid-btn,
+#reset-btn {
+    margin-bottom: 32px;
+    padding: 8px;
 }
