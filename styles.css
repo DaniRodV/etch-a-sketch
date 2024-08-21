@@ -20,5 +20,6 @@ div#grid-container {
 #grid-btn,
 #reset-btn {
     margin-bottom: 32px;
+    margin-top: 12px;
     padding: 8px;
 }
