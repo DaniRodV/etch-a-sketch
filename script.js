@@ -12,11 +12,17 @@ function createGrid (gridSize) {
         //If there are fewer squares, they will be bigger.
         //More squares, they will be smaller.
         const cellSize = 700 / gridSize;
-        gridCell.setAttribute(`style`, `height: ${cellSize}px; width: ${cellSize}px; border: 0.2px solid black`);
-        gridCell.addEventListener("mouseenter", () => {
-            gridCell.style.backgroundColor = "black";
+        gridCell.setAttribute(`style`, `height: ${cellSize}px; width: ${cellSize}px; border: 1px solid black`);
+        //Event listener for filling out cells
+        gridContainer.addEventListener("mousedown", (e) => {
+            e.preventDefault();
         });
-
+        gridContainer.addEventListener("mouseover", (e) => {
+            if (e.buttons === 1) {
+                e.target.style.backgroundColor = "black";
+            }
+        });
+        //Event listener for clearing the grid, keeping the same number of cells
         resetBtn.addEventListener("click", () => {
             gridCell.style.backgroundColor = "white";
         });
@@ -33,7 +39,7 @@ function changeGridSize () {
     let newSize;
 
     do {
-        newSize = prompt("Select the size of your grid. It must a number between 4 and 100.", "");
+        newSize = prompt("Select the size of your grid. It must be a number between 4 and 100.", "");
 
         if (newSize === null) {
             createGrid(16);
