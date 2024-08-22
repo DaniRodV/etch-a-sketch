@@ -8,7 +8,12 @@ function randomize(number) {
 
 
 function createGrid (gridSize) {
-    //Loop to create grid based on the input
+    //Prevent default drag behavior
+    gridContainer.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+    });
+
+    //Loop to create grid based on the input 
     for (let i = 1; i <= gridSize * gridSize; i++) {
         const gridCell = document.createElement("div");
         gridContainer.appendChild(gridCell);
@@ -17,21 +22,33 @@ function createGrid (gridSize) {
         //If there are fewer squares, they will be bigger.
         //More squares, they will be smaller.
         const cellSize = 700 / gridSize;
-        gridCell.setAttribute(`style`, `height: ${cellSize}px; width: ${cellSize}px; border: 1px solid black`);
-        //Event listener for filling out cells
-        gridContainer.addEventListener("mousedown", (e) => {
-            e.preventDefault();
-        });
+        gridCell.setAttribute(`style`, `height: ${cellSize}px;
+            width: ${cellSize}px;
+            opacity: 0.1;
+            background-color: white`);
 
-        gridContainer.addEventListener("mouseover", (e) => {
+        //Event listener for filling out cells
+                gridCell.addEventListener("mouseover", (e) => {
+
+            let currentOpacity = parseFloat(e.target.style.opacity);
+
+                if (currentOpacity < 1) {
+                    currentOpacity += 0.1;
+                    e.target.style.opacity = currentOpacity;
+                }
+                
             if (e.buttons === 1) {
-                const randomColor = `rgb(${randomize(256)}, ${randomize(256)}, ${randomize(256)})`
-                e.target.style.backgroundColor = randomColor;
+                
+                if (e.target.style.backgroundColor === "white") {
+                    const randomColor = `rgb(${randomize(256)}, ${randomize(256)}, ${randomize(256)})`
+                    e.target.style.backgroundColor = randomColor;
+                }
             }
         });
         //Event listener for clearing the grid, keeping the same number of cells
         resetBtn.addEventListener("click", () => {
             gridCell.style.backgroundColor = "white";
+            gridCell.style.opacity = 0.1;
         });
     }
 }

@@ -14,7 +14,7 @@ div#grid-container {
     width: 700px;
     height: 700px;
     outline: 1px solid black;
-    margin: auto auto 32px auto;
+    margin: auto auto 12px auto;
 }
 
 #grid-btn,
@@ -22,4 +22,10 @@ div#grid-container {
     margin-bottom: 32px;
     margin-top: 12px;
     padding: 8px;
+}
+
+#options-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
 }
